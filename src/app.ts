@@ -25,16 +25,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/home', function (req: Request, res: Response) {
-    res.send("Welcome")
-});
 app.use('/api/v1/', indexRouter);
 
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {
-    //next(createError(404));
-    res.status(404)
+    next(createError(404));
 });
 
 // error handler
@@ -42,6 +38,6 @@ app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
     // set locals, only providing error in development
     const message = err.message;
     const status = err.status;
-    res.status(status||500).send({message})
+    res.status(status || 500).send({ message })
 });
 export default app;
